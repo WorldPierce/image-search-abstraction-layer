@@ -29,7 +29,7 @@
       <form ng-controller="imageSearchCtrl">
         {{searchValue}}
         <input type="text" maxlength="100" placeholder="Enter Search Value" ng-model="searchValue">
-        <a class="btn btn-primary" ng-href="/api/imagesearch/{{searchValue}}">Submit</a>
+        <a class="btn btn-primary" ng-href="/api/imagesearch/{{searchValue}}?offset=10">Submit</a>
       </form>
     </main>
 
