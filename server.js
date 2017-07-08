@@ -33,7 +33,7 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/api/recentsearchs', (req,res)=>{
+app.get('/api/recentsearches', (req,res)=>{
   imageSearch.find({},(err,data)=>{
     res.json(data);
   });

@@ -27,11 +27,13 @@
 
     <main>
       <form ng-controller="imageSearchCtrl">
-        {{searchValue}}
+<!--         {{searchValue}} -->
         <input type="text" maxlength="100" placeholder="Enter Search Value" ng-model="searchValue">
         <a class="btn btn-primary" ng-href="/api/imagesearch/{{searchValue}}?offset=10">Submit</a>
+        <br>
+        <a class="btn btn-secondary" ng-href="/api/recentsearches">Recent Searches</a>
       </form>
-      <a class="btn btn-primary" ng-href="/api/imagesearch/{{searchValue}}?offset=10">Submit</a>
+      
     </main>
 
     <footer>
