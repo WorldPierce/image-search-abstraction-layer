@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body class="test-center">
+  <body class="text-center">
     <header>
       <h1>
         Image Search Abstraction
@@ -26,10 +26,10 @@
     </header>
 
     <main>
-      <form ng-controller='imageSearchCtrl'>
-        
+      <form ng-controller="imageSearchCtrl">
+        {{searchValue}}
         <input type="text" maxlength="100" placeholder="Enter Search Value" ng-model="searchValue">
-        <a class="btn btn-primary" ng-href='/api/imagesearch/:{{searchValue}}'>Submit</a>
+        <a class="btn btn-primary" ng-href="/api/imagesearch/{{searchValue}}">Submit</a>
       </form>
     </main>
 
