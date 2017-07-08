@@ -47,7 +47,7 @@ app.get('/api/imagesearch/:images*', (req, res)=>{
     term: images,
     when: new Date()
   })
-  
+  //save to mongodb collection with mongoose
   data.save(err => {
     if(err) throw err
     //res.json(data);
@@ -56,15 +56,31 @@ app.get('/api/imagesearch/:images*', (req, res)=>{
   // images,
   // offset});
   // console.log(images);
+  var searchOffSet;
+  
+  if(offset){
+    if(offset == 1){
+      offset = 0;
+      searchOffSet = 1;
+    }
+    else if(offset > 1){
+      searchOffSet = offset + 1;
+    }
+  }
   Bing.images(images,{
-    top:10
+    top:(10 * searchOffSet),
+    skip: (10 * offset)
   }, function(error, rez, body){
     var bingData = [];
     for(var i = 0; i < 10; i++){
       bingData.push({
-        url: body.value[i]
-      })
+        url: body.value[i].webSearchUrl,
+        snippet: body.value[i].name,
+        thumbnail: body.value[i].thumbnailUrl,
+        context: body.value[i].hostPageDisplayUrl
+      });
     }
+    res.json(bingData);
   })
 });
 // listen for requests :)
