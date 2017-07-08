@@ -14,7 +14,8 @@
     "mongodb": "^2.2.30",
     "mongoose": "^4.11.1",
     "cors": "^2.8.3",
-    "body-parser": "^1.17.2"
+    "body-parser": "^1.17.2",
+    "node-bing-api": "^3.2.1"
   },
   "engines": {
     "node": "8.1.x"

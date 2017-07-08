@@ -10,6 +10,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var shortUrl = require('./models/imageSearch');
 var connected=false;
+var Bing = require('node-bing-api')({accKey: '34d1633a6ca84f00a5df2b6f9b1d2739'});
 
 
 //connect to database mongoose pluralizes connections
@@ -32,9 +33,11 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/api/imagesearch/:images(*)', (req, res)=>{
+app.get('/api/imagesearch/:images*', (req, res)=>{
   var {images} = req.params;
-  res.send(images);
+  var {offset} = req.query;
+  res.json({
+  i});
   console.log(images);
 });
 // listen for requests :)
