@@ -1,9 +1,11 @@
+//requirements for mongoose and schema
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+//Model
 var urlSchema = new Schema({
   term: String,
-  when: String
+  when: Date
   
 }, {timeStamps: true});
 //collection and schema

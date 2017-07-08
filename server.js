@@ -8,13 +8,13 @@ var app = express();
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-var shortUrl = require('./models/imageSearch');
+var imageSearch = require('./models/imageSearch');
 var connected=false;
 var Bing = require('node-bing-api')({accKey: '34d1633a6ca84f00a5df2b6f9b1d2739'});
 
 
 //connect to database mongoose pluralizes connections
-var MONGODB_URI = 'mongodb://admin:admin@ds151702.mlab.com:51702/shorturldb';
+var MONGODB_URI = 'mongodb://admin:admin@ds151662.mlab.com:51662/imagesearchdb';
 //console.log(process.env.USER)
 mongoose.connect(MONGODB_URI, {
   useMongoClient: true
@@ -36,8 +36,19 @@ app.get("/", function (request, response) {
 app.get('/api/imagesearch/:images*', (req, res)=>{
   var {images} = req.params;
   var {offset} = req.query;
+  
+  var data = new imageSearch({
+    term: images,
+    when: new Date()
+  })
+  
+  data.save(err => {
+    if(err) throw err
+    res.json(data);
+  })
   res.json({
-  i});
+  images,
+  offset});
   console.log(images);
 });
 // listen for requests :)
