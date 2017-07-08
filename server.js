@@ -16,10 +16,10 @@ var Bing = require('node-bing-api')({accKey: '34d1633a6ca84f00a5df2b6f9b1d2739'}
 //connect to database mongoose pluralizes connections
 var MONGODB_URI = 'mongodb://admin:admin@ds151662.mlab.com:51662/imagesearchdb';
 //console.log(process.env.USER)
-mongoose.connect(MONGODB_URI, {
-  useMongoClient: true
-});
-
+// mongoose.connect(MONGODB_URI, {
+//   useMongoClient: true
+// });
+mongoose.connect(MONGODB_URI);
 app.use(cors());
 app.use(bodyParser.json());
 // we've started you off with Express, 
@@ -33,6 +33,12 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/api/recentsearchs', (req,res)=>{
+  imageSearch.find({},(err,data)=>{
+    res.json(data);
+  });
+});
+
 app.get('/api/imagesearch/:images*', (req, res)=>{
   var {images} = req.params;
   var {offset} = req.query;
@@ -44,12 +50,22 @@ app.get('/api/imagesearch/:images*', (req, res)=>{
   
   data.save(err => {
     if(err) throw err
-    res.json(data);
+    //res.json(data);
   })
-  res.json({
-  images,
-  offset});
-  console.log(images);
+  // res.json({
+  // images,
+  // offset});
+  // console.log(images);
+  Bing.images(images,{
+    top:10
+  }, function(error, rez, body){
+    var bingData = [];
+    for(var i = 0; i < 10; i++){
+      bingData.push({
+        url: body.value[i]
+      })
+    }
+  })
 });
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
